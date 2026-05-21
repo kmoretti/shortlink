@@ -1,29 +1,7 @@
 {
-  "/": "https://yourblog.example.com",
-  "/github": "https://github.com/yourusername",
-  "/twitter": "https://twitter.com/yourhandle",
-  "/blog": "https://yourblog.example.com",
-  "/docs": "https://docs.example.com",
-  "/newsletter": "https://newsletter.example.com",
-  "/choose": {
-    "type": "choice",
-    "title": "选择 ",
-    "options": [
-      {
-        "label": "Link 1",
-        "description": "Describe 1",
-        "url": "https://example.com"
-      },
-      {
-        "label": "Link 2",
-        "description": "Describe 2",
-        "url": "https://example.net"
-      },
-      {
-        "label": "Link 3",
-        "description": "Describe 3",
-        "url": "https://example.org"
-      }
-    ]
-  }
+  "/github": "https://github.com/moretti815",
+  "/telegram": "https://t.me/Kemeow0815",
+  "/blog": "https://moretti815.github.io/blog/",
+  "/qq": "https://qm.qq.com/q/FLRZlmsESI",
+  "/mail": "mailto:mcy@kemiaosw.top"
 }
