@@ -255,6 +255,7 @@ function generateIndexPage(links) {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <script src="//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
   <style>
     :root {
       --bg-primary: #faf9f7;
@@ -684,12 +685,12 @@ function generateIndexPage(links) {
         <span class="stat-label">短链</span>
       </div>
       <div class="stat">
-        <span class="stat-value">${Math.round(linkCount * 1.4)}K</span>
-        <span class="stat-label">月访问</span>
+        <span class="stat-value" id="busuanzi_site_pv">加载中...</span>
+        <span class="stat-label">总访问</span>
       </div>
       <div class="stat">
-        <span class="stat-value">CF</span>
-        <span class="stat-label">托管</span>
+        <span class="stat-value" id="busuanzi_site_uv">加载中...</span>
+        <span class="stat-label">总访客</span>
       </div>
     </div>
   </div>
