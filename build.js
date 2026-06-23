@@ -690,12 +690,12 @@ function generateIndexPage(links) {
         <span class="stat-value">${linkCount}</span>
         <span class="stat-label">短链</span>
       </div>
-      <div class="stat">
-        <span class="stat-value" id="busuanzi_site_pv">加载中...</span>
+      <div class="stat" id="busuanzi_container_site_pv" style="display: none;">
+        <span class="stat-value" id="busuanzi_site_pv">--</span>
         <span class="stat-label">总访问</span>
       </div>
-      <div class="stat">
-        <span class="stat-value" id="busuanzi_site_uv">加载中...</span>
+      <div class="stat" id="busuanzi_container_site_uv" style="display: none;">
+        <span class="stat-value" id="busuanzi_site_uv">--</span>
         <span class="stat-label">总访客</span>
       </div>
     </div>
@@ -723,51 +723,6 @@ function generateIndexPage(links) {
     (function() {
       const themeToggle = document.getElementById('themeToggle');
       const root = document.documentElement;
-      const statsTargets = {
-        pv: document.getElementById('busuanzi_site_pv'),
-        uv: document.getElementById('busuanzi_site_uv')
-      };
-      
-      function isNumericText(value) {
-        return /^\d+$/.test((value || '').trim());
-      }
-      
-      function normalizeStat(target) {
-        const text = (target.textContent || '').trim();
-        if (isNumericText(text)) {
-          target.textContent = text;
-          return true;
-        }
-        return false;
-      }
-      
-      function observeStat(target) {
-        const observer = new MutationObserver(function() {
-          if (normalizeStat(target)) {
-            observer.disconnect();
-          }
-        });
-        
-        observer.observe(target, {
-          childList: true,
-          characterData: true,
-          subtree: true
-        });
-        
-        window.setTimeout(function() {
-          if (!normalizeStat(target)) {
-            target.textContent = '--';
-          }
-          observer.disconnect();
-        }, 5000);
-      }
-      
-      function loadStats() {
-        statsTargets.pv.textContent = '加载中...';
-        statsTargets.uv.textContent = '加载中...';
-        observeStat(statsTargets.pv);
-        observeStat(statsTargets.uv);
-      }
       
       // Get saved theme or default to system preference
       const savedTheme = localStorage.getItem('theme');
@@ -804,8 +759,6 @@ function generateIndexPage(links) {
           root.setAttribute('data-theme', e.matches ? 'dark' : 'light');
         }
       });
-      
-      loadStats();
     })();
   </script>
 </body>
