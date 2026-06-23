@@ -676,18 +676,41 @@
         return /^d+$/.test((value || '').trim());
       }
       
-      function sanitizeStat(target) {
-        const text = target.textContent || '';
-        target.textContent = isNumericText(text) ? text.trim() : '--';
+      function normalizeStat(target) {
+        const text = (target.textContent || '').trim();
+        if (isNumericText(text)) {
+          target.textContent = text;
+          return true;
+        }
+        return false;
+      }
+      
+      function observeStat(target) {
+        const observer = new MutationObserver(function() {
+          if (normalizeStat(target)) {
+            observer.disconnect();
+          }
+        });
+        
+        observer.observe(target, {
+          childList: true,
+          characterData: true,
+          subtree: true
+        });
+        
+        window.setTimeout(function() {
+          if (!normalizeStat(target)) {
+            target.textContent = '--';
+          }
+          observer.disconnect();
+        }, 5000);
       }
       
       function loadStats() {
         statsTargets.pv.textContent = '加载中...';
         statsTargets.uv.textContent = '加载中...';
-        window.setTimeout(function() {
-          sanitizeStat(statsTargets.pv);
-          sanitizeStat(statsTargets.uv);
-        }, 1500);
+        observeStat(statsTargets.pv);
+        observeStat(statsTargets.uv);
       }
       
       // Get saved theme or default to system preference
