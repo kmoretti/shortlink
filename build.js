@@ -13,6 +13,11 @@ if (fs.existsSync(outputDir)) {
 }
 fs.mkdirSync(outputDir, { recursive: true });
 
+const faviconFile = path.join(__dirname, "favicon.ico");
+if (fs.existsSync(faviconFile)) {
+  fs.copyFileSync(faviconFile, path.join(outputDir, "favicon.ico"));
+}
+
 // 生成404页面
 function generate404Page(shortPath) {
   return `<!DOCTYPE html>
