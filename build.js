@@ -252,6 +252,8 @@ function generateIndexPage(links) {
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Shortlink Directory</title>
+  <link rel="icon" href="/favicon.ico">
+  <script defer src="https://busuanzi.9420.ltd/js"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -720,25 +722,23 @@ function generateIndexPage(links) {
         pv: document.getElementById('busuanzi_site_pv'),
         uv: document.getElementById('busuanzi_site_uv')
       };
-      const COUNTER_API = 'https://api.countapi.xyz/hit/shortlink.moretti815.pages.dev/visits';
       
-      function formatCount(value) {
-        return typeof value === 'number' && Number.isFinite(value) ? String(value) : '--';
+      function isNumericText(value) {
+        return /^\d+$/.test((value || '').trim());
       }
       
-      async function loadStats() {
-        try {
-          const response = await fetch(COUNTER_API, { cache: 'no-store' });
-          if (!response.ok) throw new Error('Failed to load stats');
-          const data = await response.json();
-          const value = typeof data.value === 'number' ? data.value : null;
-          const displayValue = formatCount(value);
-          statsTargets.pv.textContent = displayValue;
-          statsTargets.uv.textContent = displayValue;
-        } catch (_) {
-          statsTargets.pv.textContent = '--';
-          statsTargets.uv.textContent = '--';
-        }
+      function sanitizeStat(target) {
+        const text = target.textContent || '';
+        target.textContent = isNumericText(text) ? text.trim() : '--';
+      }
+      
+      function loadStats() {
+        statsTargets.pv.textContent = '加载中...';
+        statsTargets.uv.textContent = '加载中...';
+        window.setTimeout(function() {
+          sanitizeStat(statsTargets.pv);
+          sanitizeStat(statsTargets.uv);
+        }, 1500);
       }
       
       // Get saved theme or default to system preference
