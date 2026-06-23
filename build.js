@@ -255,7 +255,6 @@ function generateIndexPage(links) {
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
-  <script src="//cdn.busuanzi.cc/busuanzi/3.6.9/busuanzi.min.js" defer></script>
   <style>
     :root {
       --bg-primary: #faf9f7;
@@ -717,6 +716,30 @@ function generateIndexPage(links) {
     (function() {
       const themeToggle = document.getElementById('themeToggle');
       const root = document.documentElement;
+      const statsTargets = {
+        pv: document.getElementById('busuanzi_site_pv'),
+        uv: document.getElementById('busuanzi_site_uv')
+      };
+      const COUNTER_API = 'https://api.countapi.xyz/hit/shortlink.moretti815.pages.dev/visits';
+      
+      function formatCount(value) {
+        return typeof value === 'number' && Number.isFinite(value) ? String(value) : '--';
+      }
+      
+      async function loadStats() {
+        try {
+          const response = await fetch(COUNTER_API, { cache: 'no-store' });
+          if (!response.ok) throw new Error('Failed to load stats');
+          const data = await response.json();
+          const value = typeof data.value === 'number' ? data.value : null;
+          const displayValue = formatCount(value);
+          statsTargets.pv.textContent = displayValue;
+          statsTargets.uv.textContent = displayValue;
+        } catch (_) {
+          statsTargets.pv.textContent = '--';
+          statsTargets.uv.textContent = '--';
+        }
+      }
       
       // Get saved theme or default to system preference
       const savedTheme = localStorage.getItem('theme');
@@ -753,6 +776,8 @@ function generateIndexPage(links) {
           root.setAttribute('data-theme', e.matches ? 'dark' : 'light');
         }
       });
+      
+      loadStats();
     })();
   </script>
 </body>
