@@ -14,7 +14,7 @@
   "/monitor": "https://uptime.081531.xyz/status/status",
   "/npm": "https://npm.081531.xyz",
   "/imgbed": "https://imgbed.081531.xyz",
-  "/m": "https://mm.081531.xyz",
+  "/channel": "https://mm.081531.xyz",
   "/rss-beauty": "https://rss-beauty.081531.xyz",
   "/ip": "https://ip.081531.xyz",
   "/pansou": "https://pansou.081531.xyz",
@@ -22,5 +22,7 @@
   "/openlist": "https://openlist.081531.xyz",
   "/dockerflare": "https://dockerflare.081531.xyz",
   "/tempmail": "https://mail.081531.xyz",
-  "/fc": "https://fc.081531.xyz"
+  "/fc": "https://fc.081531.xyz",
+  "/html": "https://html.081531.xyz",
+  "/news": "https://news.081531.xyz"
 }
